@@ -1,9 +1,15 @@
-package jpabook.ex;
+package jpabook.ex.item;
+
+import jpabook.ex.Category;
+import jpabook.ex.OrderItem;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -13,6 +19,8 @@ import java.util.List;
  * Created by sykim on 2016. 3. 20..
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
 public class Item {
 
     @Id

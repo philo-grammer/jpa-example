@@ -12,7 +12,7 @@ import java.util.List;
  * Created by sykim on 2016. 3. 20..
  */
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
