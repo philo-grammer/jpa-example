@@ -21,9 +21,7 @@ public class JpaMain {
 
         try {
             tx.begin();
-            //logic(em);
-            //logic_ex(em);
-            logic_20160322(em);
+            logic(em);
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();    // !!!!!!!!!!!!!!!!!!!!!!
@@ -36,8 +34,37 @@ public class JpaMain {
 
     }
 
-    private static void logic_20160322(EntityManager em) {
+    private static void logic(EntityManager em) {
 
+        /*
+        //== 영속성 전이를 사용하기 전==//
+        Delivery delivery = new Delivery();
+        em.persist(delivery);   //persist
+
+        OrderItem orderItem1 = new OrderItem();
+        OrderItem orderItem2 = new OrderItem();
+        em.persist(orderItem1); //persist
+        em.persist(orderItem2); //persist
+
+        Order order = new Order();
+        order.setDelivery(delivery);
+        order.addOrderItem(orderItem1);
+        order.addOrderItem(orderItem2);
+
+        em.persist(order);  //persist
+        */
+
+        Delivery delivery = new Delivery();
+        OrderItem orderItem1 = new OrderItem();
+        OrderItem orderItem2 = new OrderItem();
+
+        Order order = new Order();
+        order.setDelivery(delivery);
+        order.addOrderItem(orderItem1);
+        order.addOrderItem(orderItem2);
+
+        em.persist(order);  //delivery, orderItems 플러시 시점에서 영속성 전이
+        
         System.out.println("Success!");
 
         /*
