@@ -64,7 +64,7 @@ public class JpaMain {
         order.addOrderItem(orderItem2);
 
         em.persist(order);  //delivery, orderItems 플러시 시점에서 영속성 전이
-        
+
         System.out.println("Success!");
 
         /*
