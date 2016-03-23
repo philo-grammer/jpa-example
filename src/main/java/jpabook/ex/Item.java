@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sykim on 2016. 3. 20..
@@ -16,9 +19,18 @@ public class Item {
     @Column(name = "ITEM_ID")
     private Long id;
 
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+
     private String name;        //이름
     private int price;          //가격
     private int stockQuantity;  //재고수량
+
+    //==연관관계 메소드=//
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setItem(this);
+    }
 
     // Getter, Setter
     public Long getId() {

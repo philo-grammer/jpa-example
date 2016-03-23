@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
-    <persistence-unit name="jpabook">
+    <persistence-unit name="jpa-book">
 
         <class>jpabook.ex.Member</class>
+        <class>jpabook.ex.Order</class>
+        <class>jpabook.ex.OrderItem</class>
+        <class>jpabook.ex.Item</class>
 
         <properties>
 
@@ -21,7 +24,7 @@
             <property name="hibernate.id.new_generator_mappings" value="true" />
 
             <!-- 데이터베이스 스키마 자동 생성 -->
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 

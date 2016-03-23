@@ -6,10 +6,15 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sykim on 2016. 3. 20..
@@ -23,14 +28,34 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @Column(name = "MEMBER_ID")
-    private Long memberid;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;     //주문 날짜
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;    //주문 상태
+
+
+    //==연관관계 메소드==//
+    public void setMember(Member member) {
+        //기존 관계 제거
+        if(this.member != null) {
+            this.member.getOrders().remove(this);
+        }
+        this.member = member;
+        member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 
     // Getter, Setter
     public Long getId() {
@@ -39,14 +64,6 @@ public class Order {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getMemberid() {
-        return memberid;
-    }
-
-    public void setMemberid(Long memberid) {
-        this.memberid = memberid;
     }
 
     public Date getOrderDate() {
@@ -64,4 +81,6 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
+
 }
