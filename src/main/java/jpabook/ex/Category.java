@@ -1,5 +1,7 @@
 package jpabook.ex;
 
+import jpabook.ex.item.Item;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
