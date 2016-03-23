@@ -37,10 +37,9 @@ public class JpaMain {
     }
 
     private static void logic_20160322(EntityManager em) {
-        //Order 저장
-        Order order = new Order();
 
-        em.persist(order);
+        System.out.println("Success!");
+
         /*
         //Order 저장
         Order order = new Order();

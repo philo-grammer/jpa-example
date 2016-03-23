@@ -7,6 +7,8 @@
         <class>jpabook.ex.Order</class>
         <class>jpabook.ex.OrderItem</class>
         <class>jpabook.ex.Item</class>
+        <class>jpabook.ex.Delivery</class>
+        <class>jpabook.ex.Category</class>
 
         <properties>
 

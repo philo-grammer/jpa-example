@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,9 @@ public class Item {
         orderItems.add(orderItem);
         orderItem.setItem(this);
     }
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<Category>();
 
     // Getter, Setter
     public Long getId() {
