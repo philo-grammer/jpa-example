@@ -1,4 +1,4 @@
-package jpabook.ex;
+package jpabook.jpashop.domain;
 
 /**
  * Created by sykim on 2016. 3. 23..
