@@ -1,7 +1,7 @@
-package jpabook.ex.item;
+package jpabook.jpashop.domain.item;
 
-import jpabook.ex.Category;
-import jpabook.ex.OrderItem;
+import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.domain.OrderItem;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
