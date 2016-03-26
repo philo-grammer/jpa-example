@@ -1,50 +1,47 @@
 package jpabook.jpashop.domain.item;
 
 import jpabook.jpashop.domain.Category;
-import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.exception.NotEnoughStockException;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by sykim on 2016. 3. 20..
+ * Created by holyeye on 2014. 3. 11..
  */
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
-public class Item {
+public abstract class Item {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
-
-    @OneToMany(mappedBy = "item")
-    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     private String name;        //이름
     private int price;          //가격
     private int stockQuantity;  //재고수량
 
-    //==연관관계 메소드=//
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setItem(this);
-    }
-
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<Category>();
 
-    // Getter, Setter
+    //==Biz Method==//
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock(int quantity) {
+        int restStock = this.stockQuantity - quantity;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
+    }
+
+
+    //==Getter Setter==//
     public Long getId() {
         return id;
     }
@@ -75,5 +72,22 @@ public class Item {
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
