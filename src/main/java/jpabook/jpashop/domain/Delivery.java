@@ -1,34 +1,39 @@
 package jpabook.jpashop.domain;
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
- * Created by holyeye on 2014. 3. 11..
+ * Created by sykim on 2016. 3. 23..
  */
 @Entity
 public class Delivery {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "DELIVERY_ID")
     private Long id;
 
     @OneToOne(mappedBy = "delivery")
     private Order order;
 
+    //private String city;
+    //private String street;
+    //private String zipcode;
+
     @Embedded
     private Address address;
 
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus status; //ENUM [READY(준비), COMP(배송)]
+    private DeliveryStatus status;
 
-    public Delivery() {
-    }
-
-    public Delivery(Address address) {
-        this.address = address;
-        this.status = DeliveryStatus.READY;
-    }
+    //Getter, Setter
 
     public Long getId() {
         return id;
@@ -60,14 +65,5 @@ public class Delivery {
 
     public void setStatus(DeliveryStatus status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Delivery{" +
-                "id=" + id +
-                ", address=" + address +
-                ", status=" + status +
-                '}';
     }
 }

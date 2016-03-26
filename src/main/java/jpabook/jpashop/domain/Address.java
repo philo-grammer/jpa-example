@@ -3,7 +3,7 @@ package jpabook.jpashop.domain;
 import javax.persistence.Embeddable;
 
 /**
- * Created by holyeye on 2014. 3. 11..
+ * Created by sykim on 2016. 3. 23..
  */
 @Embeddable
 public class Address {
@@ -12,15 +12,8 @@ public class Address {
     private String street;
     private String zipcode;
 
-    public Address() {
-    }
-
-    public Address(String city, String street, String zipcode) {
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
-    }
-
+    //Getter, Setter
+    //Equals, hashCode
     public String getCity() {
         return city;
     }
@@ -57,15 +50,16 @@ public class Address {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Address address = (Address) o;
 
-        if (city != null ? !city.equals(address.city) : address.city != null) return false;
-        if (street != null ? !street.equals(address.street) : address.street != null) return false;
-        if (zipcode != null ? !zipcode.equals(address.zipcode) : address.zipcode != null) return false;
+        if (city != null ? !city.equals(address.city) : address.city != null)
+            return false;
+        if (street != null ? !street.equals(address.street) : address.street != null)
+            return false;
+        return zipcode != null ? zipcode.equals(address.zipcode) : address.zipcode == null;
 
-        return true;
     }
 
     @Override
